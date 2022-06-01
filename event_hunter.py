@@ -188,6 +188,7 @@ while True:
     c_time = now.strftime("%H")
 
     if int(c_time) >= 19:
+        print("time to sleep\n")
         driver.quit()
 ###
 
