@@ -28,7 +28,7 @@ do
 		now=$(date +%T);
 		echo -e "\n\033[0;32mTime : $now\033[0m"
 		echo -e "\033[0;31mWait until morning\033[0m"
-		sleep 3600
+		sleep 600
 	fi
 	sleep 2
 done
