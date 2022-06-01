@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 ### set target date
-targetdate = ["3", "7", "10"]
+targetdate = ["10"]
 
 ### set success_item_cnt
 success_cnt = len(targetdate)
@@ -72,7 +72,7 @@ print("\n\nlogin success   >>>>")
 x = 0
 suc_list = []
 while True:
-    driver.implicitly_wait(3)
+    driver.implicitly_wait(2)
     allevent = driver.find_elements(By.CLASS_NAME, 'event-item')
     allpop = driver.find_element(By.CLASS_NAME, 'modal-content')
 
