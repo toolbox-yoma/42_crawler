@@ -13,10 +13,7 @@ from datetime import datetime
 
 
 ### set target date
-targetdate = ["10"]
-
-### set success_item_cnt
-success_cnt = len(targetdate)
+targetdate = ["26, 30"]
 
 ### set_init_info
 ### 상위 폴더에 있는 id_info.info에
@@ -35,18 +32,18 @@ user_id = file_lines[0].strip()
 user_pass = file_lines[1].strip()
 
 options = webdriver.ChromeOptions()
-prefs = {'profile.default_content_setting_values': {'cookies': 1, 'images': 2, 'javascript': 2, 
-                            'plugins': 2, 'popups': 2, 'geolocation': 2, 
-                            'notifications': 2, 'auto_select_certificate': 2, 'fullscreen': 2, 
-                            'mouselock': 2, 'mixed_script': 2, 'media_stream': 2, 
-                            'media_stream_mic': 2, 'media_stream_camera': 2, 'protocol_handlers': 2, 
-                            'ppapi_broker': 2, 'automatic_downloads': 2, 'midi_sysex': 2, 
-                            'push_messaging': 2, 'ssl_cert_decisions': 2, 'metro_switch_to_desktop': 2, 
-                            'protected_media_identifier': 2, 'app_banner': 2, 'site_engagement': 2, 
+prefs = {'profile.default_content_setting_values': {'cookies': 1, 'images': 2, 'javascript': 2,
+                            'plugins': 2, 'popups': 2, 'geolocation': 2,
+                            'notifications': 2, 'auto_select_certificate': 2, 'fullscreen': 2,
+                            'mouselock': 2, 'mixed_script': 2, 'media_stream': 2,
+                            'media_stream_mic': 2, 'media_stream_camera': 2, 'protocol_handlers': 2,
+                            'ppapi_broker': 2, 'automatic_downloads': 2, 'midi_sysex': 2,
+                            'push_messaging': 2, 'ssl_cert_decisions': 2, 'metro_switch_to_desktop': 2,
+                            'protected_media_identifier': 2, 'app_banner': 2, 'site_engagement': 2,
                             'durable_storage': 2}}
 options.add_experimental_option('prefs', prefs)
 ### headlest mode
-options.add_argument('headless')
+# options.add_argument('headless')
 options.add_argument('User-Agent: xxxxxxxxxxxxxxx')
 options.add_argument("disable-infobars")
 options.add_argument("--disable-extensions")
@@ -55,7 +52,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chro
 
 url = 'https://intra.42.fr'
 ### set target || skip || pass word
-target = ["rush", "봉사", "피신", "Piscine", "piscine", "PISCINE", "EXAM", "exam", "Exam", "Rush", "RUSH", "러쉬"]
+target = ["rush", "봉사", "피신", "Piscine", "piscine", "PISCINE", "EXAM", "exam", "Exam", "Rush", "RUSH", "러쉬", "라피신"]
 regi = "REGISTEREDRegisteredregistered"
 full = "FULLFullfull"
 skip = ["test", "Test", "TEST", "테스트", "테슷트", "테슷흐", "테슽흐", "제발", "마세요", "금지", "don", "Don", "DON", "not", "tig", "TIG", "Tig", "주의", "🚨", "하지", "본과정"]
@@ -133,7 +130,7 @@ while True:
                         else :
                             suc_list.append("fail case\n")
                         driver.implicitly_wait(1)
-                        break 
+                        break
                     else :
                         if over in full:
                             now = time.localtime()
@@ -161,7 +158,7 @@ while True:
                                 suc_list.append("\n")
                                 suc_list.append(event_subname)
                                 suc_list.append("   [waitlist]\n\n")
-                            break 
+                            break
                         else :
                             if over in regi:
                                 now = time.localtime()
@@ -171,7 +168,7 @@ while True:
                                 print("   >>>> already regi]\n")
                                 x += 1
                                 targetdate.remove(date)
-                                break 
+                                break
 
     ### while
     if len(targetdate) == 0:
