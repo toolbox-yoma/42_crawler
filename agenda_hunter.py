@@ -16,9 +16,9 @@ from datetime import datetime
 targetdate = ["26, 30"]
 
 ### set_init_info
-### 상위 폴더에 있는 id_info.info에
-### 첫줄에   ID
-### 둘째줄에 PASS
+# 상위 폴더에 있는 id_info.info에
+# 첫줄에   ID
+# 둘째줄에 PASS
 f = open("../id_info.info", "r")
 
 

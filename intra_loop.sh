@@ -14,14 +14,14 @@ do
 			break
 		fi
 
-		state_macro=$(ps | grep "event_hunter.py" | grep -v "grep" | wc -l)
+		state_macro=$(ps | grep "agenda_hunter.py" | grep -v "grep" | wc -l)
 		if [ $state_macro -eq 0 ]
 		then
 			now=$(date +%T);
 			echo -e "\n\033[0;32mTime : $now\033[0m"
 			echo -e "\033[0;31mdown : $cnt\033[0m"
 			echo -e "\033[0;36mset  : intra_macro execute\033[0m\n"
-			python3 event_hunter.py
+			python3 agenda_hunter.py
 			cnt=$((cnt + 1))   
 		fi
 	else
