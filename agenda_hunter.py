@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 ### set target date
-targetdate = ["26, 30"]
+targetdate = ["10", "14"]
 
 ### set_init_info
 # 상위 폴더에 있는 id_info.info에
@@ -32,8 +32,8 @@ user_id = file_lines[0].strip()
 user_pass = file_lines[1].strip()
 
 options = webdriver.ChromeOptions()
-prefs = {'profile.default_content_setting_values': {'cookies': 1, 'images': 2, 'javascript': 2,
-                            'plugins': 2, 'popups': 2, 'geolocation': 2,
+prefs = {'profile.default_content_setting_values': {'cookies': 1, 'images': 2, 'javascript': 1,
+                            'plugins': 2, 'popups': 1, 'geolocation': 2,
                             'notifications': 2, 'auto_select_certificate': 2, 'fullscreen': 2,
                             'mouselock': 2, 'mixed_script': 2, 'media_stream': 2,
                             'media_stream_mic': 2, 'media_stream_camera': 2, 'protocol_handlers': 2,
@@ -43,33 +43,35 @@ prefs = {'profile.default_content_setting_values': {'cookies': 1, 'images': 2, '
                             'durable_storage': 2}}
 options.add_experimental_option('prefs', prefs)
 ### headlest mode
-# options.add_argument('headless')
+options.add_argument('headless')
 options.add_argument('User-Agent: xxxxxxxxxxxxxxx')
 options.add_argument("disable-infobars")
 options.add_argument("--disable-extensions")
-#driver = webdriver.Chrome('/Users/yoma/Downloads/chromedriver')
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options=options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 url = 'https://intra.42.fr'
 ### set target || skip || pass word
-target = ["rush", "봉사", "피신", "Piscine", "piscine", "PISCINE", "EXAM", "exam", "Exam", "Rush", "RUSH", "러쉬", "라피신"]
+target = ["rush", "봉사", "피신", "Piscine", "piscine", "PISCINE", "EXAM", "exam", "Exam", "Rush", "RUSH", "러쉬", "라피신", "간담회"]
 regi = "REGISTEREDRegisteredregistered"
 full = "FULLFullfull"
-skip = ["test", "Test", "TEST", "테스트", "테슷트", "테슷흐", "테슽흐", "제발", "마세요", "금지", "don", "Don", "DON", "not", "tig", "TIG", "Tig", "주의", "🚨", "하지", "본과정"]
+skip = ["cursus", "Cursus", "CURSUS","test", "Test", "TEST", "테스트", "테슷트", "테슷흐", "테슽흐", "제발", "마세요", "금지", "don", "Don", "DON", "not", "tig", "TIG", "Tig", "주의", "🚨", "하지", "본과정"]
 
 ###  init_intra_macro
 driver.get(url)
 driver.implicitly_wait(2)
+
 #driver.get_screenshot_as_file('intra_main_headless.png')
 driver.find_element(By.NAME, 'user[login]').send_keys(user_id)
 driver.find_element(By.NAME, 'user[password]').send_keys(user_pass)
 driver.find_element(By.NAME, 'commit').click()
 print("\n\nlogin success   >>>>")
 
+
 x = 0
 suc_list = []
+count_suc_list_before = 0
+count_suc_list_after = 0
 while True:
-    driver.implicitly_wait(2)
     allevent = driver.find_elements(By.CLASS_NAME, 'event-item')
     allpop = driver.find_element(By.CLASS_NAME, 'modal-content')
 
@@ -116,7 +118,7 @@ while True:
                         print("     > [new agenda!!]")
                         print("     > [try subscribe...]")
                         i.find_element(By.CLASS_NAME, 'event-main').click()
-                        driver.implicitly_wait(2)
+                        time.sleep(1)
                         sub = allpop.find_element(By.CLASS_NAME, 'modal-footer')
                         button_text = sub.find_element(By.TAG_NAME, 'a').get_attribute("textContent").strip()
                         if button_text == "Subscribe":
@@ -127,9 +129,9 @@ while True:
                             suc_list.append("\n")
                             suc_list.append(event_subname)
                             suc_list.append("   [subscribe]\n\n")
+                            count_suc_list_after += 1
                         else :
                             suc_list.append("fail case\n")
-                        driver.implicitly_wait(1)
                         break
                     else :
                         if over in full:
@@ -139,7 +141,6 @@ while True:
                             print("     > [full agenda!!]")
                             print("     > [try waitlist...]")
                             i.find_element(By.CLASS_NAME, 'event-main').click()
-                            driver.implicitly_wait(2)
                             sub = allpop.find_element(By.CLASS_NAME, 'modal-footer')
                             check_sub = sub.find_element(By.TAG_NAME, 'a').get_attribute("textContent").strip()
                             if check_sub == "Subscribe to waitlist":
@@ -151,7 +152,6 @@ while True:
                                 print("   >>>> already wait]\n")
                                 sub_check = 0
                                 targetdate.remove(date)
-                            driver.implicitly_wait(1)
                             if sub_check == 1:
                                 x += 1
                                 suc_list.append("%04d/%02d/%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec))
@@ -170,21 +170,26 @@ while True:
                                 targetdate.remove(date)
                                 break
 
+
     ### while
-    if len(targetdate) == 0:
-        print("<<<<>>>>   all done  <<<<>>>>")
-        f = open("result.loop", 'w')
+    if count_suc_list_after != count_suc_list_before:
+        f = open("result.loop", 'a')
         for i in suc_list:
-            print(i)
             f.write(i)
         f.close()
+        suc_list.clear()
+        count_suc_list_before = count_suc_list_after
+
+    if len(targetdate) == 0:
+        print("<<<<>>>>   all done  <<<<>>>>")
         driver.quit()
-    time.sleep(random.randrange(1,2))
+
+    time.sleep(random.randrange(3,5))
     driver.refresh()
     now = datetime.now()
     c_time = now.strftime("%H")
 
-    if int(c_time) >= 19:
+    if int(c_time) >= 21:
         print("time to sleep\n")
         driver.quit()
 ###
