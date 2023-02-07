@@ -51,7 +51,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 
 url = 'https://intra.42.fr'
 ### set target || skip || pass word
-target = ["rush", "봉사", "피신", "Piscine", "piscine", "PISCINE", "EXAM", "exam", "Exam", "Rush", "RUSH", "러쉬", "라피신", "간담회"]
+target = ["rush", "봉사", "피신", "Piscine", "piscine", "PISCINE", "EXAM", "exam", "Exam", "Rush", "RUSH", "러쉬", "라피신"]
 regi = "REGISTEREDRegisteredregistered"
 full = "FULLFullfull"
 skip = ["cursus", "Cursus", "CURSUS","test", "Test", "TEST", "테스트", "테슷트", "테슷흐", "테슽흐", "제발", "마세요", "금지", "don", "Don", "DON", "not", "tig", "TIG", "Tig", "주의", "🚨", "하지", "본과정"]
