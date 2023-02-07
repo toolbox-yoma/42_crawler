@@ -69,8 +69,6 @@ print("\n\nlogin success   >>>>")
 
 x = 0
 suc_list = []
-count_suc_list_before = 0
-count_suc_list_after = 0
 while True:
     allevent = driver.find_elements(By.CLASS_NAME, 'event-item')
     allpop = driver.find_element(By.CLASS_NAME, 'modal-content')
@@ -129,7 +127,6 @@ while True:
                             suc_list.append("\n")
                             suc_list.append(event_subname)
                             suc_list.append("   [subscribe]\n\n")
-                            count_suc_list_after += 1
                         else :
                             suc_list.append("fail case\n")
                         break
@@ -172,16 +169,12 @@ while True:
 
 
     ### while
-    if count_suc_list_after != count_suc_list_before:
+    if len(targetdate) == 0:
+        print("<<<<>>>>   all done  <<<<>>>>")
         f = open("result.loop", 'a')
         for i in suc_list:
             f.write(i)
         f.close()
-        suc_list.clear()
-        count_suc_list_before = count_suc_list_after
-
-    if len(targetdate) == 0:
-        print("<<<<>>>>   all done  <<<<>>>>")
         driver.quit()
 
     time.sleep(random.randrange(3,5))
