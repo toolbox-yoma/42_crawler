@@ -47,7 +47,9 @@ options.add_argument('headless')
 options.add_argument('User-Agent: xxxxxxxxxxxxxxx')
 options.add_argument("disable-infobars")
 options.add_argument("--disable-extensions")
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+service = Service(executable_path="./chromedriver")
+driver = webdriver.Chrome(service=service, options=options)
 
 url = 'https://intra.42.fr'
 ### set target || skip || pass word
