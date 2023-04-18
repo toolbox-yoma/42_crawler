@@ -48,7 +48,7 @@ options.add_argument('User-Agent: xxxxxxxxxxxxxxx')
 options.add_argument("disable-infobars")
 options.add_argument("--disable-extensions")
 #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-service = Service(executable_path="./chromedriver")
+service = Service(executable_path="./chromedriver_m1") #check
 driver = webdriver.Chrome(service=service, options=options)
 
 url = 'https://intra.42.fr'
@@ -61,11 +61,12 @@ skip = ["cursus", "Cursus", "CURSUS","test", "Test", "TEST", "테스트", "테�
 ###  init_intra_macro
 driver.get(url)
 driver.implicitly_wait(2)
+driver.find_element(By.CLASS_NAME, 'btn-login-student').click()
 
 #driver.get_screenshot_as_file('intra_main_headless.png')
-driver.find_element(By.NAME, 'user[login]').send_keys(user_id)
-driver.find_element(By.NAME, 'user[password]').send_keys(user_pass)
-driver.find_element(By.NAME, 'commit').click()
+driver.find_element(By.NAME, 'username').send_keys(user_id)
+driver.find_element(By.NAME, 'password').send_keys(user_pass)
+driver.find_element(By.NAME, 'login').click()
 print("\n\nlogin success   >>>>")
 
 
@@ -188,4 +189,3 @@ while True:
         print("time to sleep\n")
         driver.quit()
 ###
-
