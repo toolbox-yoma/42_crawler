@@ -214,15 +214,15 @@ class Driver:
         # self.close_tab()
         # return
 
-        i = 270
-        while i < project_size:
-            element_to_click = target_project_list[i].find_element(By.TAG_NAME, "a")
-            self.new_tab(element_to_click)
-            self.get_attachment(True)
-            self.get_sublist(False)
-            self.close_tab()
-            i += 1
-        return
+        # i = 270
+        # while i < project_size:
+        #     element_to_click = target_project_list[i].find_element(By.TAG_NAME, "a")
+        #     self.new_tab(element_to_click)
+        #     self.get_attachment(True)
+        #     self.get_sublist(False)
+        #     self.close_tab()
+        #     i += 1
+        # return
 
         for i in range(project_size):
             # self.target_project_list[i].find_element(By.TAG_NAME, "a").click()
